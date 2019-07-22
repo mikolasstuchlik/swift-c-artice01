@@ -1,0 +1,773 @@
+[1/3] Compiling CswiftLib c_code.c
+[2/3] Compiling Swift Module 'swift_c_article01' (1 sources)
+*** SIL module before Guaranteed Passes ***
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : @trivial $Int32, %1 : @trivial $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %23, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to [init] %3 : $*String                // id: %10
+  %11 = load [copy] %3 : $*String                 // users: %22, %14
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %12 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %14
+  %13 = alloc_stack $UnsafePointer<Int8>          // users: %21, %15, %14
+  %14 = apply %12<UnsafePointer<Int8>>(%13, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %20, %16
+  %15 = load [trivial] %13 : $*UnsafePointer<Int8> // user: %16
+  %16 = mark_dependence %15 : $UnsafePointer<Int8> on %14 : $Optional<AnyObject> // user: %17
+  %17 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %16 : $UnsafePointer<Int8> // user: %19
+  // function_ref safely_print_message
+  %18 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %19
+  %19 = apply %18(%17) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  destroy_value %14 : $Optional<AnyObject>        // id: %20
+  dealloc_stack %13 : $*UnsafePointer<Int8>       // id: %21
+  destroy_value %11 : $String                     // id: %22
+  %23 = load [copy] %3 : $*String                 // users: %33, %26
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %24 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %26
+  %25 = alloc_stack $UnsafePointer<Int8>          // users: %32, %27, %26
+  %26 = apply %24<UnsafePointer<Int8>>(%25, %23) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %31, %28
+  %27 = load [trivial] %25 : $*UnsafePointer<Int8> // user: %28
+  %28 = mark_dependence %27 : $UnsafePointer<Int8> on %26 : $Optional<AnyObject> // user: %30
+  // function_ref decorate_my_message
+  %29 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %30
+  %30 = apply %29(%28) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  destroy_value %26 : $Optional<AnyObject>        // id: %31
+  dealloc_stack %25 : $*UnsafePointer<Int8>       // id: %32
+  destroy_value %23 : $String                     // id: %33
+  %34 = integer_literal $Builtin.Int32, 0         // user: %35
+  %35 = struct $Int32 (%34 : $Builtin.Int32)      // user: %36
+  return %35 : $Int32                             // id: %36
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL module after #1, stage Guaranteed Passes, pass 1: CapturePromotion (capture-promotion)
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : @trivial $Int32, %1 : @trivial $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %23, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to [init] %3 : $*String                // id: %10
+  %11 = load [copy] %3 : $*String                 // users: %22, %14
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %12 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %14
+  %13 = alloc_stack $UnsafePointer<Int8>          // users: %21, %15, %14
+  %14 = apply %12<UnsafePointer<Int8>>(%13, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %20, %16
+  %15 = load [trivial] %13 : $*UnsafePointer<Int8> // user: %16
+  %16 = mark_dependence %15 : $UnsafePointer<Int8> on %14 : $Optional<AnyObject> // user: %17
+  %17 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %16 : $UnsafePointer<Int8> // user: %19
+  // function_ref safely_print_message
+  %18 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %19
+  %19 = apply %18(%17) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  destroy_value %14 : $Optional<AnyObject>        // id: %20
+  dealloc_stack %13 : $*UnsafePointer<Int8>       // id: %21
+  destroy_value %11 : $String                     // id: %22
+  %23 = load [copy] %3 : $*String                 // users: %33, %26
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %24 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %26
+  %25 = alloc_stack $UnsafePointer<Int8>          // users: %32, %27, %26
+  %26 = apply %24<UnsafePointer<Int8>>(%25, %23) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %31, %28
+  %27 = load [trivial] %25 : $*UnsafePointer<Int8> // user: %28
+  %28 = mark_dependence %27 : $UnsafePointer<Int8> on %26 : $Optional<AnyObject> // user: %30
+  // function_ref decorate_my_message
+  %29 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %30
+  %30 = apply %29(%28) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  destroy_value %26 : $Optional<AnyObject>        // id: %31
+  dealloc_stack %25 : $*UnsafePointer<Int8>       // id: %32
+  destroy_value %23 : $String                     // id: %33
+  %34 = integer_literal $Builtin.Int32, 0         // user: %35
+  %35 = struct $Int32 (%34 : $Builtin.Int32)      // user: %36
+  return %35 : $Int32                             // id: %36
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL module after #2, stage Guaranteed Passes, pass 2: AccessEnforcementSelection (access-enforcement-selection)
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : @trivial $Int32, %1 : @trivial $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %23, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to [init] %3 : $*String                // id: %10
+  %11 = load [copy] %3 : $*String                 // users: %22, %14
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %12 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %14
+  %13 = alloc_stack $UnsafePointer<Int8>          // users: %21, %15, %14
+  %14 = apply %12<UnsafePointer<Int8>>(%13, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %20, %16
+  %15 = load [trivial] %13 : $*UnsafePointer<Int8> // user: %16
+  %16 = mark_dependence %15 : $UnsafePointer<Int8> on %14 : $Optional<AnyObject> // user: %17
+  %17 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %16 : $UnsafePointer<Int8> // user: %19
+  // function_ref safely_print_message
+  %18 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %19
+  %19 = apply %18(%17) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  destroy_value %14 : $Optional<AnyObject>        // id: %20
+  dealloc_stack %13 : $*UnsafePointer<Int8>       // id: %21
+  destroy_value %11 : $String                     // id: %22
+  %23 = load [copy] %3 : $*String                 // users: %33, %26
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %24 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %26
+  %25 = alloc_stack $UnsafePointer<Int8>          // users: %32, %27, %26
+  %26 = apply %24<UnsafePointer<Int8>>(%25, %23) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %31, %28
+  %27 = load [trivial] %25 : $*UnsafePointer<Int8> // user: %28
+  %28 = mark_dependence %27 : $UnsafePointer<Int8> on %26 : $Optional<AnyObject> // user: %30
+  // function_ref decorate_my_message
+  %29 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %30
+  %30 = apply %29(%28) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  destroy_value %26 : $Optional<AnyObject>        // id: %31
+  dealloc_stack %25 : $*UnsafePointer<Int8>       // id: %32
+  destroy_value %23 : $String                     // id: %33
+  %34 = integer_literal $Builtin.Int32, 0         // user: %35
+  %35 = struct $Int32 (%34 : $Builtin.Int32)      // user: %36
+  return %35 : $Int32                             // id: %36
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL module after #9, stage Guaranteed Passes, pass 9: OwnershipModelEliminator (ownership-model-eliminator)
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL module after #10, stage Guaranteed Passes, pass 10: MandatoryInlining (mandatory-inlining)
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL function after  #15, stage Guaranteed Passes, pass 15: DiagnoseUnreachable (diagnose-unreachable)
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+*** SIL module before Prespecialization ***
+sil_stage canonical
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+*** SIL module before Rest of Onone ***
+sil_stage canonical
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+*** SIL module before Address Lowering ***
+sil_stage canonical
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+*** SIL module before IRGen Preparation ***
+sil_stage lowered
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+  *** SIL module after #1, stage IRGen Preparation, pass 1: LoadableByAddress (loadable-address)
+sil_stage lowered
+
+import Builtin
+import Swift
+import SwiftShims
+
+// myMessage
+sil_global [let] @$s17swift_c_article019myMessageSSvp : $String
+
+// main
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s17swift_c_article019myMessageSSvp // id: %2
+  %3 = global_addr @$s17swift_c_article019myMessageSSvp : $*String // users: %24, %11, %10
+  %4 = string_literal utf8 "🐱 and 🐶 in my 🏠 likes each others!" // user: %9
+  %5 = integer_literal $Builtin.Word, 43          // user: %9
+  %6 = integer_literal $Builtin.Int1, 0           // user: %9
+  %7 = metatype $@thin String.Type                // user: %9
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %8 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %9
+  %9 = apply %8(%4, %5, %6, %7) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %10
+  store %9 to %3 : $*String                       // id: %10
+  %11 = load %3 : $*String                        // users: %23, %15, %12
+  retain_value %11 : $String                      // id: %12
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %13 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %15
+  %14 = alloc_stack $UnsafePointer<Int8>          // users: %16, %22, %15
+  %15 = apply %13<UnsafePointer<Int8>>(%14, %11) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %21, %17
+  %16 = load %14 : $*UnsafePointer<Int8>          // user: %17
+  %17 = mark_dependence %16 : $UnsafePointer<Int8> on %15 : $Optional<AnyObject> // user: %18
+  %18 = enum $Optional<UnsafePointer<Int8>>, #Optional.some!enumelt.1, %17 : $UnsafePointer<Int8> // user: %20
+  // function_ref safely_print_message
+  %19 = function_ref @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> () // user: %20
+  %20 = apply %19(%18) : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+  release_value %15 : $Optional<AnyObject>        // id: %21
+  dealloc_stack %14 : $*UnsafePointer<Int8>       // id: %22
+  release_value %11 : $String                     // id: %23
+  %24 = load %3 : $*String                        // users: %35, %28, %25
+  retain_value %24 : $String                      // id: %25
+  // function_ref _convertConstStringToUTF8PointerArgument<A>(_:)
+  %26 = function_ref @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // user: %28
+  %27 = alloc_stack $UnsafePointer<Int8>          // users: %29, %34, %28
+  %28 = apply %26<UnsafePointer<Int8>>(%27, %24) : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0) // users: %33, %30
+  %29 = load %27 : $*UnsafePointer<Int8>          // user: %30
+  %30 = mark_dependence %29 : $UnsafePointer<Int8> on %28 : $Optional<AnyObject> // user: %32
+  // function_ref decorate_my_message
+  %31 = function_ref @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> () // user: %32
+  %32 = apply %31(%30) : $@convention(c) (UnsafePointer<Int8>) -> ()
+  release_value %28 : $Optional<AnyObject>        // id: %33
+  dealloc_stack %27 : $*UnsafePointer<Int8>       // id: %34
+  release_value %24 : $String                     // id: %35
+  %36 = integer_literal $Builtin.Int32, 0         // user: %37
+  %37 = struct $Int32 (%36 : $Builtin.Int32)      // user: %38
+  return %37 : $Int32                             // id: %38
+} // end sil function 'main'
+
+// String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+sil [serialized] [always_inline] [readonly] [_semantics "string.makeUTF8"] @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String
+
+// _convertConstStringToUTF8PointerArgument<A>(_:)
+sil @$ss40_convertConstStringToUTF8PointerArgumentyyXlSg_xtSSs01_F0RzlF : $@convention(thin) <τ_0_0 where τ_0_0 : _Pointer> (@guaranteed String) -> (@owned Optional<AnyObject>, @out τ_0_0)
+
+// safely_print_message
+sil [clang safely_print_message] @safely_print_message : $@convention(c) (Optional<UnsafePointer<Int8>>) -> ()
+
+// decorate_my_message
+sil [clang decorate_my_message] @decorate_my_message : $@convention(c) (UnsafePointer<Int8>) -> ()
+
+
+
+*** SIL module before Prespecialization ***
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+
+
+*** SIL module before Rest of Onone ***
+sil_stage raw
+
+import Builtin
+import Swift
+import SwiftShims
+
+
+
+[3/3] Linking ./.build/x86_64-apple-macosx/debug/swift-c-article01
