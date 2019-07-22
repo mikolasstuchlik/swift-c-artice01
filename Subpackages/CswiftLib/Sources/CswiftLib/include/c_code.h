@@ -9,8 +9,6 @@
 
 #endif
 
-void decorate_my_message(const char * _Nonnull message);
-
-void safely_print_message(const char * _Nullable message); 
+void unconst_print(char * _Nonnull string);
 
 #endif /* C_SWIFT_LIB_H */
