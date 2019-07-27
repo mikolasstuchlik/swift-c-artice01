@@ -1,4 +1,4 @@
-var fce: @convention(c) (UnsafeMutablePointer<Int8>) -> Void = { ptr in
+func fce(_ ptr: UnsafeMutablePointer<Int8>) {
     print(ptr)
 }
 
